@@ -10,20 +10,19 @@ USER root
 # Oracle JDK
 ############
 
-ENV VERSION 7
-ENV UPDATE 80
+ENV VERSION 7u80
 ENV BUILD 15
-ENV JAVA_HOME /etc/java-${VERSION}.${UPDATE}.${BUILD}-jdk
+ENV JAVA_HOME /etc/jdk-${VERSION}-b${BUILD}
 
-RUN apt-get purge -y openjdk-8-jre
 RUN cd /tmp
-RUN apt-get update && apt-get install ca-certificates curl -y
-RUN curl --silent --location --retry 3 --cacert /etc/ssl/certs/GeoTrust_Global_CA.pem \
-    --header "Cookie: oraclelicense=accept-securebackup-cookie;" \
-    http://download.oracle.com/otn-pub/java/jdk/"${VERSION}"u"${UPDATE}"-b"${BUILD}"/jdk-"${VERSION}"u"${UPDATE}"-linux-x64.tar.gz \
-    | tar xz -C /tmp && mv /tmp/jdk1.${VERSION}.0_${UPDATE} "${JAVA_HOME}"
+RUN wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/${VERSION}-b${BUILD}/jdk-${VERSION}-linux-x64.tar.gz
+RUN mkdir jdk-${VERSION}-linux-x64
+RUN tar -zxvf jdk-${VERSION}-linux-x64.tar.gz --directory jdk-${VERSION}-linux-x64 --strip-components=1
+RUN mv jdk-${VERSION}-linux-x64 ${JAVA_HOME}
 
 ENV PATH ${PATH}:${JAVA_HOME}/bin
+
+# Testing
 RUN java -version
 RUN javac -version
 
