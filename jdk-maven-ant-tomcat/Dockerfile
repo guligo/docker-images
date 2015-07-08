@@ -27,7 +27,7 @@ RUN unset TOMCAT_MAJOR
 RUN unset TOMCAT_VERSION
 RUN unset TOMCAT_HOME
 
-# Running
+# Execution
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]

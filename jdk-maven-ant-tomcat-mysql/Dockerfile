@@ -22,7 +22,7 @@ RUN { \
 RUN apt-get update
 RUN apt-get install -y mysql-server="${MYSQL_VERSION}"*
 
-# Cleanup
+# Execution
 
 RUN mysqld &
 
