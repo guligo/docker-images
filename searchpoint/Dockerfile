@@ -7,9 +7,9 @@ FROM guligo/jdk-maven-ant-tomcat-mysql:latest
 RUN apt-get update
 RUN apt-get install -y git
 
-##############
-# Tipspromenad
-##############
+#############
+# Searchpoint
+#############
 
 WORKDIR /tmp
 ADD start.sh start.sh
